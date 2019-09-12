@@ -1,8 +1,8 @@
-﻿// <copyright file="NotificationDelivery.cs" company="Microsoft">
+﻿// <copyright file="DeliveryPretreatment.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
-namespace Microsoft.Teams.Apps.CompanyCommunicator.Send.Func.NotificationDelivery
+namespace Microsoft.Teams.Apps.CompanyCommunicator.Send.Func.DeliveryPretreatment
 {
     using System;
     using System.Collections.Generic;
@@ -10,27 +10,23 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Send.Func.NotificationDeliver
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Azure.ServiceBus;
-    using Microsoft.Azure.ServiceBus.Core;
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.UserData;
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Notification delivery service.
+    /// Notification delivery pretreatment service.
     /// </summary>
-    public class NotificationDelivery
+    public class DeliveryPretreatment
     {
-        private readonly IConfiguration configuration;
         private readonly NotificationDataRepository notificationDataRepository;
         private readonly MetadataProvider metadataProvider;
         private readonly SendingNotificationCreator sendingNotificationCreator;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationDelivery"/> class.
+        /// Initializes a new instance of the <see cref="DeliveryPretreatment"/> class.
         /// </summary>
-        /// <param name="configuration">The configuration.</param>
         /// <param name="notificationDataRepository">Notification repository service.</param>
         /// <param name="metadataProvider">Metadata Provider instance.</param>
         /// <param name="sendingNotificationCreator">SendingNotification creator.</param>
@@ -40,7 +36,6 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.Send.Func.NotificationDeliver
             MetadataProvider metadataProvider,
             SendingNotificationCreator sendingNotificationCreator)
         {
-            this.configuration = configuration;
             this.notificationDataRepository = notificationDataRepository;
             this.metadataProvider = metadataProvider;
             this.sendingNotificationCreator = sendingNotificationCreator;
