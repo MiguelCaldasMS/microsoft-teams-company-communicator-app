@@ -12,11 +12,12 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.DraftNotificationPreview
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Schema;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
     using Microsoft.Teams.Apps.CompanyCommunicator.Bot;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Repositories.TeamData;
     using Microsoft.Teams.Apps.CompanyCommunicator.Common.Services;
+    using Microsoft.Teams.Apps.CompanyCommunicator.Common.Services.AdaptiveCard;
 
     /// <summary>
     /// Draft notification preview service.
@@ -34,15 +35,15 @@ namespace Microsoft.Teams.Apps.CompanyCommunicator.DraftNotificationPreview
         /// <summary>
         /// Initializes a new instance of the <see cref="DraftNotificationPreviewService"/> class.
         /// </summary>
-        /// <param name="configuration">Application configuration service.</param>
+        /// <param name="botOptions">The bot options.</param>
         /// <param name="adaptiveCardCreator">Adaptive card creator service.</param>
         /// <param name="companyCommunicatorBotAdapter">Bot framework http adapter instance.</param>
         public DraftNotificationPreviewService(
-            IConfiguration configuration,
+            IOptions<BotOptions> botOptions,
             AdaptiveCardCreator adaptiveCardCreator,
             CompanyCommunicatorBotAdapter companyCommunicatorBotAdapter)
         {
-            this.botAppId = configuration["MicrosoftAppId"];
+            this.botAppId = botOptions.Value.MicrosoftAppId;
             if (string.IsNullOrEmpty(this.botAppId))
             {
                 throw new ApplicationException("MicrosoftAppId setting is missing in the configuration.");
